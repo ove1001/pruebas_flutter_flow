@@ -209,105 +209,134 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 ],
               ),
-              PagedListView<ApiPagingParams, dynamic>(
-                pagingController: () {
-                  if (_model.pagingController != null) {
-                    return _model.pagingController!;
-                  }
+              Expanded(
+                child: PagedListView<ApiPagingParams, dynamic>(
+                  pagingController: () {
+                    if (_model.pagingController != null) {
+                      return _model.pagingController!;
+                    }
 
-                  _model.pagingController = PagingController(
-                    firstPageKey: ApiPagingParams(
-                      nextPageNumber: 0,
-                      numItems: 0,
-                      lastResponse: null,
-                    ),
-                  );
-                  _model.pagingController!
-                      .addPageRequestListener((nextPageMarker) {
-                    RegistrosSensoresGroup.allCall
-                        .call()
-                        .then((listViewAllResponse) {
-                      final pageItems = (listViewAllResponse.jsonBody ?? [])
-                          .take(200 - nextPageMarker.numItems)
-                          .toList() as List;
-                      final newNumItems =
-                          nextPageMarker.numItems + pageItems.length;
-                      _model.pagingController!.appendPage(
-                        pageItems,
-                        (pageItems.length > 0) && newNumItems < 200
-                            ? ApiPagingParams(
-                                nextPageNumber:
-                                    nextPageMarker.nextPageNumber + 1,
-                                numItems: newNumItems,
-                                lastResponse: listViewAllResponse,
-                              )
-                            : null,
-                      );
-                    });
-                  });
-                  return _model.pagingController!;
-                }(),
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                reverse: false,
-                scrollDirection: Axis.vertical,
-                builderDelegate: PagedChildBuilderDelegate<dynamic>(
-                  // Customize what your widget looks like when it's loading the first page.
-                  firstPageProgressIndicatorBuilder: (_) => Center(
-                    child: SizedBox(
-                      width: 50.0,
-                      height: 50.0,
-                      child: CircularProgressIndicator(
-                        color: FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
-                  ),
-
-                  itemBuilder: (context, _, listaRegistrosIndex) {
-                    final listaRegistrosItem =
-                        _model.pagingController!.itemList![listaRegistrosIndex];
-                    return Container(
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            getJsonField(
-                              listaRegistrosItem,
-                              r'''$.id''',
-                            ).toString(),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                          Text(
-                            getJsonField(
-                              listaRegistrosItem,
-                              r'''$.valor''',
-                            ).toString().maybeHandleOverflow(maxChars: 5),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                          Text(
-                            getJsonField(
-                              listaRegistrosItem,
-                              r'''$.tipo_sensor.nombre''',
-                            ).toString(),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                          Text(
-                            getJsonField(
-                              listaRegistrosItem,
-                              r'''$.numero_sensor''',
-                            ).toString(),
-                            style: FlutterFlowTheme.of(context).bodyMedium,
-                          ),
-                        ],
+                    _model.pagingController = PagingController(
+                      firstPageKey: ApiPagingParams(
+                        nextPageNumber: 0,
+                        numItems: 0,
+                        lastResponse: null,
                       ),
                     );
-                  },
+                    _model.pagingController!
+                        .addPageRequestListener((nextPageMarker) {
+                      RegistrosSensoresGroup.allCall
+                          .call()
+                          .then((listViewAllResponse) {
+                        final pageItems = (listViewAllResponse.jsonBody ?? [])
+                            .take(200 - nextPageMarker.numItems)
+                            .toList() as List;
+                        final newNumItems =
+                            nextPageMarker.numItems + pageItems.length;
+                        _model.pagingController!.appendPage(
+                          pageItems,
+                          (pageItems.length > 0) && newNumItems < 200
+                              ? ApiPagingParams(
+                                  nextPageNumber:
+                                      nextPageMarker.nextPageNumber + 1,
+                                  numItems: newNumItems,
+                                  lastResponse: listViewAllResponse,
+                                )
+                              : null,
+                        );
+                      });
+                    });
+                    return _model.pagingController!;
+                  }(),
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  reverse: false,
+                  scrollDirection: Axis.vertical,
+                  builderDelegate: PagedChildBuilderDelegate<dynamic>(
+                    // Customize what your widget looks like when it's loading the first page.
+                    firstPageProgressIndicatorBuilder: (_) => Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          color: FlutterFlowTheme.of(context).primary,
+                        ),
+                      ),
+                    ),
+
+                    itemBuilder: (context, _, listaRegistrosIndex) {
+                      final listaRegistrosItem = _model
+                          .pagingController!.itemList![listaRegistrosIndex];
+                      return Container(
+                        width: 100.0,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                getJsonField(
+                                  listaRegistrosItem,
+                                  r'''$.id''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                getJsonField(
+                                  listaRegistrosItem,
+                                  r'''$.valor''',
+                                ).toString().maybeHandleOverflow(maxChars: 5),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                getJsonField(
+                                  listaRegistrosItem,
+                                  r'''$.unidad_medida.nombre''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                getJsonField(
+                                  listaRegistrosItem,
+                                  r'''$.tipo_sensor.nombre''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                getJsonField(
+                                  listaRegistrosItem,
+                                  r'''$.zona_sensor.nombre''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                getJsonField(
+                                  listaRegistrosItem,
+                                  r'''$.numero_sensor''',
+                                ).toString(),
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
