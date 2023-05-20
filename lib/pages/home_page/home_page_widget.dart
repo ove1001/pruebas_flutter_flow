@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -207,6 +208,98 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                 ],
+              ),
+              PagedListView<ApiPagingParams, dynamic>(
+                pagingController: () {
+                  if (_model.pagingController != null) {
+                    return _model.pagingController!;
+                  }
+
+                  _model.pagingController = PagingController(
+                    firstPageKey: ApiPagingParams(
+                      nextPageNumber: 0,
+                      numItems: 0,
+                      lastResponse: null,
+                    ),
+                  );
+                  _model.pagingController!
+                      .addPageRequestListener((nextPageMarker) {
+                    RegistrosSensoresGroup.allCall
+                        .call()
+                        .then((listViewAllResponse) {
+                      final pageItems =
+                          (listViewAllResponse.jsonBody ?? []).toList() as List;
+                      final newNumItems =
+                          nextPageMarker.numItems + pageItems.length;
+                      _model.pagingController!.appendPage(
+                        pageItems,
+                        (pageItems.length > 0)
+                            ? ApiPagingParams(
+                                nextPageNumber:
+                                    nextPageMarker.nextPageNumber + 1,
+                                numItems: newNumItems,
+                                lastResponse: listViewAllResponse,
+                              )
+                            : null,
+                      );
+                    });
+                  });
+                  return _model.pagingController!;
+                }(),
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                reverse: false,
+                scrollDirection: Axis.vertical,
+                builderDelegate: PagedChildBuilderDelegate<dynamic>(
+                  // Customize what your widget looks like when it's loading the first page.
+                  firstPageProgressIndicatorBuilder: (_) => Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: CircularProgressIndicator(
+                        color: FlutterFlowTheme.of(context).primary,
+                      ),
+                    ),
+                  ),
+
+                  itemBuilder: (context, _, listaRegistrosIndex) {
+                    final listaRegistrosItem =
+                        _model.pagingController!.itemList![listaRegistrosIndex];
+                    return Container(
+                      width: 100.0,
+                      height: 100.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            getJsonField(
+                              listaRegistrosItem,
+                              r'''$.id''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                          Text(
+                            getJsonField(
+                              listaRegistrosItem,
+                              r'''$.valor''',
+                            ).toString().maybeHandleOverflow(maxChars: 5),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                          Text(
+                            getJsonField(
+                              listaRegistrosItem,
+                              r'''$.numero_sensor''',
+                            ).toString(),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),
