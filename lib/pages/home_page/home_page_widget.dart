@@ -227,13 +227,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     RegistrosSensoresGroup.allCall
                         .call()
                         .then((listViewAllResponse) {
-                      final pageItems =
-                          (listViewAllResponse.jsonBody ?? []).toList() as List;
+                      final pageItems = (listViewAllResponse.jsonBody ?? [])
+                          .take(200 - nextPageMarker.numItems)
+                          .toList() as List;
                       final newNumItems =
                           nextPageMarker.numItems + pageItems.length;
                       _model.pagingController!.appendPage(
                         pageItems,
-                        (pageItems.length > 0)
+                        (pageItems.length > 0) && newNumItems < 200
                             ? ApiPagingParams(
                                 nextPageNumber:
                                     nextPageMarker.nextPageNumber + 1,
