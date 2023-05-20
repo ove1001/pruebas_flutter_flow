@@ -273,6 +273,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
                             getJsonField(
@@ -286,6 +287,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               listaRegistrosItem,
                               r'''$.valor''',
                             ).toString().maybeHandleOverflow(maxChars: 5),
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                          Text(
+                            getJsonField(
+                              listaRegistrosItem,
+                              r'''$.tipo_sensor.nombre''',
+                            ).toString(),
                             style: FlutterFlowTheme.of(context).bodyMedium,
                           ),
                           Text(
