@@ -403,7 +403,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           children: [
                             Expanded(
                               child: Text(
-                                listaRegistrosIndex
+                                listaRegistrosItem
                                     .toString()
                                     .maybeHandleOverflow(maxChars: 5),
                                 style: FlutterFlowTheme.of(context).bodyMedium,
@@ -480,11 +480,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 chartStylingInfo: ChartStylingInfo(
                                   backgroundColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
+                                  showGrid: true,
                                   showBorder: false,
                                 ),
                                 axisBounds: AxisBounds(),
-                                xAxisLabelInfo: AxisLabelInfo(),
-                                yAxisLabelInfo: AxisLabelInfo(),
+                                xAxisLabelInfo: AxisLabelInfo(
+                                  title: 'Fecha',
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                  showLabels: true,
+                                  labelInterval: 10.0,
+                                ),
+                                yAxisLabelInfo: AxisLabelInfo(
+                                  title: getJsonField(
+                                    containerAllFromPlantToGraphResponse
+                                        .jsonBody,
+                                    r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
+                                  ).toString(),
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                  showLabels: true,
+                                  labelInterval: 10.0,
+                                ),
                               ),
                             ),
                           ],
