@@ -482,12 +482,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       .secondaryBackground,
                                   showBorder: false,
                                 ),
-                                axisBounds: AxisBounds(),
+                                axisBounds: AxisBounds(
+                                  minY: -10.0,
+                                  maxY: 50.0,
+                                ),
                                 xAxisLabelInfo: AxisLabelInfo(
                                   title: 'Fecha',
                                   titleTextStyle: TextStyle(
                                     fontSize: 14.0,
                                   ),
+                                  showLabels: true,
+                                  labelInterval: 100.0,
                                 ),
                                 yAxisLabelInfo: AxisLabelInfo(
                                   title: getJsonField(
