@@ -480,7 +480,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 chartStylingInfo: ChartStylingInfo(
                                   backgroundColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  showGrid: true,
                                   showBorder: false,
                                 ),
                                 axisBounds: AxisBounds(),
@@ -489,8 +488,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   titleTextStyle: TextStyle(
                                     fontSize: 14.0,
                                   ),
-                                  showLabels: true,
-                                  labelInterval: 200.0,
                                 ),
                                 yAxisLabelInfo: AxisLabelInfo(
                                   title: getJsonField(
