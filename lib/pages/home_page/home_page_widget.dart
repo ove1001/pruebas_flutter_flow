@@ -211,7 +211,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               Container(
                 width: 465.0,
-                height: 383.0,
+                height: 335.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
@@ -362,7 +362,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           children: [
                             Container(
                               width: 370.0,
-                              height: 230.0,
+                              height: 280.0,
                               child: FlutterFlowLineChart(
                                 data: [
                                   FFLineChartData(
@@ -405,7 +405,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontSize: 14.0,
                                   ),
                                   showLabels: true,
-                                  labelInterval: 1.0,
+                                  labelInterval: 100.0,
                                 ),
                                 yAxisLabelInfo: AxisLabelInfo(
                                   title: getJsonField(
