@@ -8,7 +8,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -210,7 +209,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 ],
               ),
-              Expanded(
+              Container(
+                width: 465.0,
+                height: 383.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                ),
                 child: FutureBuilder<ApiCallResponse>(
                   future: RegistrosSensoresGroup.allCall.call(),
                   builder: (context, snapshot) {
@@ -325,97 +329,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   },
                 ),
               ),
-              Expanded(
-                child: PagedListView<ApiPagingParams, dynamic>(
-                  pagingController: () {
-                    if (_model.pagingController != null) {
-                      return _model.pagingController!;
-                    }
-
-                    _model.pagingController = PagingController(
-                      firstPageKey: ApiPagingParams(
-                        nextPageNumber: 0,
-                        numItems: 0,
-                        lastResponse: null,
-                      ),
-                    );
-                    _model.pagingController!
-                        .addPageRequestListener((nextPageMarker) {
-                      RegistrosSensoresGroup.allFromPlantToGraphCall
-                          .call(
-                        np: 'Mi tomatera',
-                      )
-                          .then((listViewAllFromPlantToGraphResponse) {
-                        final pageItems = (getJsonField(
-                                  listViewAllFromPlantToGraphResponse.jsonBody,
-                                  r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
-                                ) ??
-                                [])
-                            .take(200 - nextPageMarker.numItems)
-                            .toList() as List;
-                        final newNumItems =
-                            nextPageMarker.numItems + pageItems.length;
-                        _model.pagingController!.appendPage(
-                          pageItems,
-                          (pageItems.length > 0) && newNumItems < 200
-                              ? ApiPagingParams(
-                                  nextPageNumber:
-                                      nextPageMarker.nextPageNumber + 1,
-                                  numItems: newNumItems,
-                                  lastResponse:
-                                      listViewAllFromPlantToGraphResponse,
-                                )
-                              : null,
-                        );
-                      });
-                    });
-                    return _model.pagingController!;
-                  }(),
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  reverse: false,
-                  scrollDirection: Axis.vertical,
-                  builderDelegate: PagedChildBuilderDelegate<dynamic>(
-                    // Customize what your widget looks like when it's loading the first page.
-                    firstPageProgressIndicatorBuilder: (_) => Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).primary,
-                        ),
-                      ),
-                    ),
-
-                    itemBuilder: (context, _, listaRegistrosIndex) {
-                      final listaRegistrosItem = _model
-                          .pagingController!.itemList![listaRegistrosIndex];
-                      return Container(
-                        width: 100.0,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                listaRegistrosItem
-                                    .toString()
-                                    .maybeHandleOverflow(maxChars: 5),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
               FutureBuilder<ApiCallResponse>(
                 future: RegistrosSensoresGroup.allFromPlantToGraphCall.call(
                   np: 'Mi tomatera',
@@ -483,8 +396,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   showBorder: false,
                                 ),
                                 axisBounds: AxisBounds(
-                                  minY: -10.0,
-                                  maxY: 50.0,
+                                  minY: -5.0,
+                                  maxY: 45.0,
                                 ),
                                 xAxisLabelInfo: AxisLabelInfo(
                                   title: 'Fecha',
@@ -492,7 +405,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontSize: 14.0,
                                   ),
                                   showLabels: true,
-                                  labelInterval: 100.0,
+                                  labelInterval: 1.0,
                                 ),
                                 yAxisLabelInfo: AxisLabelInfo(
                                   title: getJsonField(
@@ -504,7 +417,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontSize: 14.0,
                                   ),
                                   showLabels: true,
+                                  labelTextStyle: TextStyle(),
                                   labelInterval: 10.0,
+                                  labelFormatter: LabelFormatter(
+                                    numberFormat: (val) => formatNumber(
+                                      val,
+                                      formatType: FormatType.custom,
+                                      format: '',
+                                      locale: '',
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
