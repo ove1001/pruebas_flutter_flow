@@ -490,7 +490,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontSize: 14.0,
                                   ),
                                   showLabels: true,
-                                  labelInterval: 10.0,
+                                  labelInterval: 200.0,
                                 ),
                                 yAxisLabelInfo: AxisLabelInfo(
                                   title: getJsonField(
