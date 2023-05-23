@@ -16,6 +16,9 @@ class RegistrosSensoresGroup {
   static Map<String, String> headers = {};
   static OneCall oneCall = OneCall();
   static AllCall allCall = AllCall();
+  static AllFromPlantToGraphCall allFromPlantToGraphCall =
+      AllFromPlantToGraphCall();
+  static AllFromPlantCall allFromPlantCall = AllFromPlantCall();
 }
 
 class OneCall {
@@ -50,6 +53,50 @@ class AllCall {
         ...RegistrosSensoresGroup.headers,
       },
       params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class AllFromPlantToGraphCall {
+  Future<ApiCallResponse> call({
+    String? np = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'AllFromPlantToGraph',
+      apiUrl: '${RegistrosSensoresGroup.baseUrl}/All/FromPlant/ToGraph',
+      callType: ApiCallType.GET,
+      headers: {
+        ...RegistrosSensoresGroup.headers,
+      },
+      params: {
+        'np': np,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class AllFromPlantCall {
+  Future<ApiCallResponse> call({
+    String? np = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'AllFromPlant',
+      apiUrl: '${RegistrosSensoresGroup.baseUrl}/All/FromPlant',
+      callType: ApiCallType.GET,
+      headers: {
+        ...RegistrosSensoresGroup.headers,
+      },
+      params: {
+        'np': np,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

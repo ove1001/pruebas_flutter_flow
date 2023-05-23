@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -338,6 +339,154 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     },
                   ),
                 ),
+              ),
+              FutureBuilder<ApiCallResponse>(
+                future: RegistrosSensoresGroup.allFromPlantToGraphCall.call(
+                  np: 'Mi tomatera',
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          color: FlutterFlowTheme.of(context).primary,
+                        ),
+                      ),
+                    );
+                  }
+                  final containerAllFromPlantToGraphResponse = snapshot.data!;
+                  return Container(
+                    width: 426.0,
+                    height: 300.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Builder(
+                          builder: (context) {
+                            final graficoTemperaturaAmbiente = getJsonField(
+                              containerAllFromPlantToGraphResponse.jsonBody,
+                              r'''$.TEMPERATURA.AMBIENTE''',
+                            ).toList();
+                            return Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: List.generate(
+                                  graficoTemperaturaAmbiente.length,
+                                  (graficoTemperaturaAmbienteIndex) {
+                                final graficoTemperaturaAmbienteItem =
+                                    graficoTemperaturaAmbiente[
+                                        graficoTemperaturaAmbienteIndex];
+                                return Container(
+                                  width: 370.0,
+                                  height: 230.0,
+                                  child: FlutterFlowLineChart(
+                                    data: [
+                                      FFLineChartData(
+                                        xData: getJsonField(
+                                          graficoTemperaturaAmbienteItem,
+                                          r'''$.lista_fechas''',
+                                        ),
+                                        yData: getJsonField(
+                                          graficoTemperaturaAmbienteItem,
+                                          r'''$.lista_valores''',
+                                        ),
+                                        settings: LineChartBarData(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          barWidth: 2.0,
+                                          isCurved: true,
+                                          dotData: FlDotData(show: false),
+                                          belowBarData: BarAreaData(
+                                            show: true,
+                                            color: FlutterFlowTheme.of(context)
+                                                .accent1,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                    chartStylingInfo: ChartStylingInfo(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      showBorder: false,
+                                    ),
+                                    axisBounds: AxisBounds(),
+                                    xAxisLabelInfo: AxisLabelInfo(),
+                                    yAxisLabelInfo: AxisLabelInfo(),
+                                  ),
+                                );
+                              }),
+                            );
+                          },
+                        ),
+                        Builder(
+                          builder: (context) {
+                            final graficoHumedadAmbiente = getJsonField(
+                              containerAllFromPlantToGraphResponse.jsonBody,
+                              r'''$.HUMEDAD.AMBIENTE''',
+                            ).toList();
+                            return Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children:
+                                  List.generate(graficoHumedadAmbiente.length,
+                                      (graficoHumedadAmbienteIndex) {
+                                final graficoHumedadAmbienteItem =
+                                    graficoHumedadAmbiente[
+                                        graficoHumedadAmbienteIndex];
+                                return Container(
+                                  width: 370.0,
+                                  height: 230.0,
+                                  child: FlutterFlowLineChart(
+                                    data: [
+                                      FFLineChartData(
+                                        xData: getJsonField(
+                                          graficoHumedadAmbienteItem,
+                                          r'''$.lista_fechas''',
+                                        ),
+                                        yData: getJsonField(
+                                          graficoHumedadAmbienteItem,
+                                          r'''$.lista_valores''',
+                                        ),
+                                        settings: LineChartBarData(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          barWidth: 2.0,
+                                          isCurved: true,
+                                          dotData: FlDotData(show: false),
+                                          belowBarData: BarAreaData(
+                                            show: true,
+                                            color: FlutterFlowTheme.of(context)
+                                                .accent1,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                    chartStylingInfo: ChartStylingInfo(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      showBorder: false,
+                                    ),
+                                    axisBounds: AxisBounds(),
+                                    xAxisLabelInfo: AxisLabelInfo(),
+                                    yAxisLabelInfo: AxisLabelInfo(),
+                                  ),
+                                );
+                              }),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ],
           ),
