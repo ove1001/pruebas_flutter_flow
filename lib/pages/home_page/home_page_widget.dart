@@ -497,8 +497,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       showBorder: false,
                                     ),
                                     axisBounds: AxisBounds(
-                                      minY: -5.0,
-                                      maxY: 45.0,
+                                      minY: 0.0,
+                                      maxY: 100.0,
                                     ),
                                     xAxisLabelInfo: AxisLabelInfo(
                                       title: 'Fecha',
