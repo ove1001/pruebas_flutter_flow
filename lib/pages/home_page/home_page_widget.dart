@@ -96,7 +96,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           final containerOneResponse = snapshot.data!;
                           return Container(
                             width: 409.0,
-                            height: 100.0,
+                            height: 50.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -227,7 +227,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     Expanded(
                       child: Container(
                         width: 100.0,
-                        height: 100.0,
+                        height: 200.0,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
@@ -265,7 +265,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         listaRegistros[listaRegistrosIndex];
                                     return Container(
                                       width: 100.0,
-                                      height: 100.0,
+                                      height: 50.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
