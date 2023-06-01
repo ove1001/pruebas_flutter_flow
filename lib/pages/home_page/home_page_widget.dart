@@ -398,6 +398,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         color: Color(0x4C396BEF),
                                       ),
                                     ),
+                                  ),
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color: Color(0xFF9D25A4),
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                    ),
                                   )
                                 ],
                                 chartStylingInfo: ChartStylingInfo(
