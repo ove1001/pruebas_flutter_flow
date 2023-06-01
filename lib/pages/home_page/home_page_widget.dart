@@ -198,50 +198,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       barWidth: 3.0,
                                       isCurved: true,
                                     ),
-                                  ),
-                                  FFLineChartData(
-                                    xData: getJsonField(
-                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
-                                    ),
-                                    yData: getJsonField(
-                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
-                                    ),
-                                    settings: LineChartBarData(
-                                      color: Color(0xFFCB282B),
-                                      barWidth: 2.0,
-                                      isCurved: true,
-                                      dotData: FlDotData(show: false),
-                                      belowBarData: BarAreaData(
-                                        show: true,
-                                        color: Color(0x4B2DA425),
-                                      ),
-                                    ),
-                                  ),
-                                  FFLineChartData(
-                                    xData: getJsonField(
-                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
-                                    ),
-                                    yData: getJsonField(
-                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
-                                    ),
-                                    settings: LineChartBarData(
-                                      color: Color(0xFF3125A4),
-                                      barWidth: 2.0,
-                                      isCurved: true,
-                                      dotData: FlDotData(show: false),
-                                      belowBarData: BarAreaData(
-                                        show: true,
-                                        color: Color(0x4C396BEF),
-                                      ),
-                                    ),
                                   )
                                 ],
                                 chartStylingInfo: ChartStylingInfo(
