@@ -364,23 +364,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     yData: getJsonField(
                                       rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                           .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
-                                    ),
-                                    settings: LineChartBarData(
-                                      color: Color(0xFFEFBC39),
-                                      barWidth: 3.0,
-                                      isCurved: true,
-                                    ),
-                                  ),
-                                  FFLineChartData(
-                                    xData: getJsonField(
-                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
-                                    ),
-                                    yData: getJsonField(
-                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                          .jsonBody,
                                       r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
                                     ),
                                     settings: LineChartBarData(
