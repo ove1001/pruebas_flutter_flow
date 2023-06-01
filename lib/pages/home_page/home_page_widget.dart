@@ -447,8 +447,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   labelFormatter: LabelFormatter(
                                     numberFormat: (val) => formatNumber(
                                       val,
-                                      formatType:
-                                          FormatType.formatTypeUndefined,
+                                      formatType: FormatType.decimal,
+                                      decimalType: DecimalType.commaDecimal,
                                     ),
                                   ),
                                 ),
