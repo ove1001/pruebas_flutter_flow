@@ -77,6 +77,67 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 370.0,
+                          height: 230.0,
+                          child: FlutterFlowLineChart(
+                            data: [
+                              FFLineChartData(
+                                xData: getJsonField(
+                                  FFAppState().datospruebas,
+                                  r'''$.TEMPERATURA.AMBIENTE.lista_fechas_largas''',
+                                ),
+                                yData: getJsonField(
+                                  FFAppState().datospruebas,
+                                  r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                ),
+                                settings: LineChartBarData(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  barWidth: 2.0,
+                                ),
+                              )
+                            ],
+                            chartStylingInfo: ChartStylingInfo(
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              showBorder: false,
+                            ),
+                            axisBounds: AxisBounds(
+                              minY: -5.0,
+                              maxY: 45.0,
+                            ),
+                            xAxisLabelInfo: AxisLabelInfo(
+                              title: 'Fecha',
+                              titleTextStyle: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                              showLabels: true,
+                              labelInterval: 10.0,
+                            ),
+                            yAxisLabelInfo: AxisLabelInfo(
+                              title: getJsonField(
+                                FFAppState().datospruebas,
+                                r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
+                              ).toString(),
+                              titleTextStyle: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                              showLabels: true,
+                              labelInterval: 10.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
@@ -400,6 +461,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         title: 'Fecha',
                                         titleTextStyle: TextStyle(
                                           fontSize: 14.0,
+                                        ),
+                                        showLabels: true,
+                                        labelInterval: 1.0,
+                                        labelFormatter: LabelFormatter(
+                                          numberFormat: (val) => formatNumber(
+                                            val,
+                                            formatType: FormatType.custom,
+                                            format: '',
+                                            locale: '',
+                                          ),
                                         ),
                                       ),
                                       yAxisLabelInfo: AxisLabelInfo(
@@ -802,140 +873,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       },
                     ),
                   ],
-                ),
-                FutureBuilder<ApiCallResponse>(
-                  future: RegistrosSensoresGroup
-                      .registrosSensoresAllFromPlantBetweenDatesToGraphCall
-                      .call(
-                    np: 'Mi tomatera',
-                    fi: '2023-05-31 21:00:00',
-                    ff: '2023-05-31 23:00:00',
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
-                          ),
-                        ),
-                      );
-                    }
-                    final rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse =
-                        snapshot.data!;
-                    return Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              width: 370.0,
-                              height: 230.0,
-                              child: FlutterFlowLineChart(
-                                data: [
-                                  FFLineChartData(
-                                    xData: getJsonField(
-                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                                    ),
-                                    yData: getJsonField(
-                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
-                                    ),
-                                    settings: LineChartBarData(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      barWidth: 2.0,
-                                      isCurved: true,
-                                    ),
-                                  ),
-                                  FFLineChartData(
-                                    xData: getJsonField(
-                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                                    ),
-                                    yData: getJsonField(
-                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
-                                    ),
-                                    settings: LineChartBarData(
-                                      color: Color(0x00000000),
-                                      barWidth: 2.0,
-                                      isCurved: true,
-                                      dotData: FlDotData(show: false),
-                                      belowBarData: BarAreaData(
-                                        show: true,
-                                        color: Color(0x4C63EF39),
-                                      ),
-                                    ),
-                                  ),
-                                  FFLineChartData(
-                                    xData: getJsonField(
-                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                                    ),
-                                    yData: getJsonField(
-                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                          .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
-                                    ),
-                                    settings: LineChartBarData(
-                                      color: Color(0xFF2536A4),
-                                      barWidth: 2.0,
-                                      isCurved: true,
-                                      dotData: FlDotData(show: false),
-                                      belowBarData: BarAreaData(
-                                        show: true,
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent1,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                                chartStylingInfo: ChartStylingInfo(
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  showBorder: false,
-                                ),
-                                axisBounds: AxisBounds(
-                                  minY: -5.0,
-                                  maxY: 45.0,
-                                ),
-                                xAxisLabelInfo: AxisLabelInfo(
-                                  title: 'Fecha',
-                                  titleTextStyle: TextStyle(
-                                    fontSize: 14.0,
-                                  ),
-                                ),
-                                yAxisLabelInfo: AxisLabelInfo(
-                                  title: getJsonField(
-                                    rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                        .jsonBody,
-                                    r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
-                                  ).toString(),
-                                  titleTextStyle: TextStyle(
-                                    fontSize: 14.0,
-                                  ),
-                                  showLabels: true,
-                                  labelInterval: 10.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
                 ),
               ],
             ),
