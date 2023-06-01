@@ -290,19 +290,191 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ],
                 ),
+                FutureBuilder<ApiCallResponse>(
+                  future: (_model.apiRequestCompleter ??=
+                          Completer<ApiCallResponse>()
+                            ..complete(RegistrosSensoresGroup
+                                .avgFromPlantAgroupByIntervalsToGraphCall
+                                .call(
+                              np: 'Mi tomatera',
+                              d: 1,
+                            )))
+                      .future,
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                      );
+                    }
+                    final columnAvgFromPlantAgroupByIntervalsToGraphResponse =
+                        snapshot.data!;
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 507.0,
+                          height: 108.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                          child: Builder(
+                            builder: (context) {
+                              final listaRegistros = getJsonField(
+                                columnAvgFromPlantAgroupByIntervalsToGraphResponse
+                                    .jsonBody,
+                                r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                              ).toList().take(200).toList();
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listaRegistros.length,
+                                itemBuilder: (context, listaRegistrosIndex) {
+                                  final listaRegistrosItem =
+                                      listaRegistros[listaRegistrosIndex];
+                                  return Container(
+                                    width: 100.0,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            listaRegistrosItem.toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        Container(
+                          width: 507.0,
+                          height: 108.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                          child: Builder(
+                            builder: (context) {
+                              final listaRegistros = getJsonField(
+                                columnAvgFromPlantAgroupByIntervalsToGraphResponse
+                                    .jsonBody,
+                                r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                              ).toList().take(200).toList();
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listaRegistros.length,
+                                itemBuilder: (context, listaRegistrosIndex) {
+                                  final listaRegistrosItem =
+                                      listaRegistros[listaRegistrosIndex];
+                                  return Container(
+                                    width: 100.0,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            listaRegistrosItem.toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 370.0,
+                              height: 230.0,
+                              child: FlutterFlowLineChart(
+                                data: [
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      columnAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      columnAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                    ),
+                                  )
+                                ],
+                                chartStylingInfo: ChartStylingInfo(
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  showBorder: false,
+                                ),
+                                axisBounds: AxisBounds(
+                                  minY: -5.0,
+                                  maxY: 45.0,
+                                ),
+                                xAxisLabelInfo: AxisLabelInfo(),
+                                yAxisLabelInfo: AxisLabelInfo(
+                                  showLabels: true,
+                                  labelInterval: 10.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     FutureBuilder<ApiCallResponse>(
-                      future: (_model.apiRequestCompleter ??=
-                              Completer<ApiCallResponse>()
-                                ..complete(RegistrosSensoresGroup
-                                    .avgFromPlantAgroupByIntervalsToGraphCall
-                                    .call(
-                                  np: 'Mi tomatera',
-                                  d: 1,
-                                )))
-                          .future,
+                      future: RegistrosSensoresGroup
+                          .avgFromPlantAgroupByIntervalsToGraphCall
+                          .call(
+                        np: 'Mi tomatera',
+                        d: 1,
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
