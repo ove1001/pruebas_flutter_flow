@@ -126,62 +126,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      getJsonField(
-                                        listaRegistrosItem,
-                                        r'''$.id''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      getJsonField(
-                                        listaRegistrosItem,
-                                        r'''$.valor''',
-                                      )
-                                          .toString()
-                                          .maybeHandleOverflow(maxChars: 5),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      getJsonField(
-                                        listaRegistrosItem,
-                                        r'''$.unidad_medida.nombre''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      getJsonField(
-                                        listaRegistrosItem,
-                                        r'''$.tipo_sensor.nombre''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      getJsonField(
-                                        listaRegistrosItem,
-                                        r'''$.zona_sensor.nombre''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      getJsonField(
-                                        listaRegistrosItem,
-                                        r'''$.numero_sensor''',
-                                      ).toString(),
+                                      listaRegistrosItem.toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                     ),
