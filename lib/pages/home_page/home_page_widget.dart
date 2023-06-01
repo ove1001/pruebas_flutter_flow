@@ -116,17 +116,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               titleTextStyle: TextStyle(
                                 fontSize: 14.0,
                               ),
-                              showLabels: true,
-                              labelInterval: 10.0,
                             ),
                             yAxisLabelInfo: AxisLabelInfo(
-                              title: getJsonField(
-                                FFAppState().datospruebas,
-                                r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
-                              ).toString(),
-                              titleTextStyle: TextStyle(
-                                fontSize: 14.0,
-                              ),
                               showLabels: true,
                               labelInterval: 10.0,
                             ),
