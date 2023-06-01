@@ -27,6 +27,9 @@ class RegistrosSensoresGroup {
   static AvgFromPlantAgroupByIntervalsToGraphCall
       avgFromPlantAgroupByIntervalsToGraphCall =
       AvgFromPlantAgroupByIntervalsToGraphCall();
+  static RegistrosSensoresAllFromPlantBetweenDatesToGraphCall
+      registrosSensoresAllFromPlantBetweenDatesToGraphCall =
+      RegistrosSensoresAllFromPlantBetweenDatesToGraphCall();
 }
 
 class RegistrosSensoresGetOneCall {
@@ -129,6 +132,33 @@ class AvgFromPlantAgroupByIntervalsToGraphCall {
       params: {
         'np': np,
         'd': d,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class RegistrosSensoresAllFromPlantBetweenDatesToGraphCall {
+  Future<ApiCallResponse> call({
+    String? np = '',
+    String? fi = '',
+    String? ff = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'RegistrosSensoresAllFromPlantBetweenDatesToGraph',
+      apiUrl:
+          '${RegistrosSensoresGroup.baseUrl}/All/FromPlant/BetweenDates/ToGraph',
+      callType: ApiCallType.GET,
+      headers: {
+        ...RegistrosSensoresGroup.headers,
+      },
+      params: {
+        'np': np,
+        'fi': fi,
+        'ff': ff,
       },
       returnBody: true,
       encodeBodyUtf8: false,

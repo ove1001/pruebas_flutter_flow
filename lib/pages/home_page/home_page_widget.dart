@@ -153,7 +153,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 .avgFromPlantAgroupByIntervalsToGraphCall
                                 .call(
                               np: 'Mi tomatera',
-                              d: 1,
+                              d: FFAppState().diasgraficar,
                             )))
                       .future,
                   builder: (context, snapshot) {
@@ -460,6 +460,89 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       },
                     ),
                   ],
+                ),
+                FutureBuilder<ApiCallResponse>(
+                  future: RegistrosSensoresGroup
+                      .registrosSensoresAllFromPlantBetweenDatesToGraphCall
+                      .call(
+                    np: 'Mi tomatera',
+                    fi: '2023-05-31 21:00:00',
+                    ff: '2023-05-31 23:00:00',
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                      );
+                    }
+                    final rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse =
+                        snapshot.data!;
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 370.0,
+                          height: 230.0,
+                          child: FlutterFlowLineChart(
+                            data: [
+                              FFLineChartData(
+                                xData: getJsonField(
+                                  rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                      .jsonBody,
+                                  r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                ),
+                                yData: getJsonField(
+                                  rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                      .jsonBody,
+                                  r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                ),
+                                settings: LineChartBarData(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  barWidth: 2.0,
+                                  isCurved: true,
+                                ),
+                              )
+                            ],
+                            chartStylingInfo: ChartStylingInfo(
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              showBorder: false,
+                            ),
+                            axisBounds: AxisBounds(
+                              minY: -5.0,
+                              maxY: 45.0,
+                            ),
+                            xAxisLabelInfo: AxisLabelInfo(
+                              title: 'Fecha',
+                              titleTextStyle: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                            ),
+                            yAxisLabelInfo: AxisLabelInfo(
+                              title: getJsonField(
+                                rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                    .jsonBody,
+                                r'''$.TEMPERATURA.AMBIENTE.unidad_medida''',
+                              ).toString(),
+                              titleTextStyle: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                              showLabels: true,
+                              labelInterval: 10.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
