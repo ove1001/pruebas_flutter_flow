@@ -121,7 +121,7 @@ class AvgFromPlantAgroupByIntervalsToGraphCall {
     return ApiManager.instance.makeApiCall(
       callName: 'AvgFromPlantAgroupByIntervalsToGraph',
       apiUrl:
-          '${RegistrosSensoresGroup.baseUrl}Avg/FromPlant/AgroupByIntervals/ToGraph',
+          '${RegistrosSensoresGroup.baseUrl}/Avg/FromPlant/AgroupByIntervals/ToGraph',
       callType: ApiCallType.GET,
       headers: {
         ...RegistrosSensoresGroup.headers,

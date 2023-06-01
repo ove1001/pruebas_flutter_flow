@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -361,6 +362,195 @@ class _BlankWidgetState extends State<BlankWidget> {
                           },
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    FutureBuilder<ApiCallResponse>(
+                      future: RegistrosSensoresGroup
+                          .registrosSensoresGetAllFromPlantToGraphCall
+                          .call(
+                        np: 'Mi tomatera',
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          );
+                        }
+                        final columnRegistrosSensoresGetAllFromPlantToGraphResponse =
+                            snapshot.data!;
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  width: 369.0,
+                                  height: 280.0,
+                                  child: FlutterFlowLineChart(
+                                    data: [
+                                      FFLineChartData(
+                                        xData: getJsonField(
+                                          columnRegistrosSensoresGetAllFromPlantToGraphResponse
+                                              .jsonBody,
+                                          r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                        ),
+                                        yData: getJsonField(
+                                          columnRegistrosSensoresGetAllFromPlantToGraphResponse
+                                              .jsonBody,
+                                          r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                        ),
+                                        settings: LineChartBarData(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          barWidth: 2.0,
+                                          isCurved: true,
+                                          dotData: FlDotData(show: false),
+                                          belowBarData: BarAreaData(
+                                            show: true,
+                                            color: FlutterFlowTheme.of(context)
+                                                .accent1,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                    chartStylingInfo: ChartStylingInfo(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      showGrid: true,
+                                      showBorder: false,
+                                    ),
+                                    axisBounds: AxisBounds(
+                                      minY: -5.0,
+                                      maxY: 45.0,
+                                    ),
+                                    xAxisLabelInfo: AxisLabelInfo(
+                                      title: 'Fecha',
+                                      titleTextStyle: TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                      showLabels: true,
+                                      labelInterval: 1.0,
+                                      labelFormatter: LabelFormatter(
+                                        numberFormat: (val) => val.toString(),
+                                      ),
+                                    ),
+                                    yAxisLabelInfo: AxisLabelInfo(
+                                      title: getJsonField(
+                                        columnRegistrosSensoresGetAllFromPlantToGraphResponse
+                                            .jsonBody,
+                                        r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
+                                      ).toString(),
+                                      titleTextStyle: TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                      showLabels: true,
+                                      labelTextStyle: TextStyle(),
+                                      labelInterval: 10.0,
+                                      labelFormatter: LabelFormatter(
+                                        numberFormat: (val) => formatNumber(
+                                          val,
+                                          formatType: FormatType.custom,
+                                          format: '',
+                                          locale: '',
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  width: 369.0,
+                                  height: 280.0,
+                                  child: FlutterFlowLineChart(
+                                    data: [
+                                      FFLineChartData(
+                                        xData: getJsonField(
+                                          columnRegistrosSensoresGetAllFromPlantToGraphResponse
+                                              .jsonBody,
+                                          r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                        ),
+                                        yData: getJsonField(
+                                          columnRegistrosSensoresGetAllFromPlantToGraphResponse
+                                              .jsonBody,
+                                          r'''$.HUMEDAD.AMBIENTE.lista_valores''',
+                                        ),
+                                        settings: LineChartBarData(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          barWidth: 2.0,
+                                          isCurved: true,
+                                          dotData: FlDotData(show: false),
+                                          belowBarData: BarAreaData(
+                                            show: true,
+                                            color: FlutterFlowTheme.of(context)
+                                                .accent1,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                    chartStylingInfo: ChartStylingInfo(
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      showBorder: false,
+                                    ),
+                                    axisBounds: AxisBounds(
+                                      minY: 0.0,
+                                      maxY: 100.0,
+                                    ),
+                                    xAxisLabelInfo: AxisLabelInfo(
+                                      title: 'Fecha',
+                                      titleTextStyle: TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                    yAxisLabelInfo: AxisLabelInfo(
+                                      title: getJsonField(
+                                        columnRegistrosSensoresGetAllFromPlantToGraphResponse
+                                            .jsonBody,
+                                        r'''$.HUMEDAD.AMBIENTE.unidad_medida.nombre''',
+                                      ).toString(),
+                                      titleTextStyle: TextStyle(
+                                        fontSize: 14.0,
+                                      ),
+                                      showLabels: true,
+                                      labelTextStyle: TextStyle(),
+                                      labelInterval: 10.0,
+                                      labelFormatter: LabelFormatter(
+                                        numberFormat: (val) => formatNumber(
+                                          val,
+                                          formatType: FormatType.custom,
+                                          format: '',
+                                          locale: '',
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ],
                 ),
