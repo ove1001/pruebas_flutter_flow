@@ -522,17 +522,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     yData: getJsonField(
                                       rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
                                           .jsonBody,
-                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
                                     ),
                                     settings: LineChartBarData(
-                                      color: Color(0xFF6F28CB),
+                                      color: Color(0x00000000),
                                       barWidth: 2.0,
                                       isCurved: true,
                                       dotData: FlDotData(show: false),
                                       belowBarData: BarAreaData(
                                         show: true,
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent1,
+                                        color: Color(0x4C63EF39),
                                       ),
                                     ),
                                   ),
@@ -619,8 +618,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   showBorder: false,
                                 ),
                                 axisBounds: AxisBounds(
-                                  minY: -5.0,
-                                  maxY: 45.0,
+                                  minY: 0.0,
+                                  maxY: 100.0,
                                 ),
                                 xAxisLabelInfo: AxisLabelInfo(
                                   title: 'Fecha',
