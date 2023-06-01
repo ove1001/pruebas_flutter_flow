@@ -75,6 +75,127 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
+                FutureBuilder<ApiCallResponse>(
+                  future: RegistrosSensoresGroup
+                      .avgFromPlantAgroupByIntervalsToGraphCall
+                      .call(
+                    np: 'Mi tomatera',
+                    d: 1,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                      );
+                    }
+                    final listViewAvgFromPlantAgroupByIntervalsToGraphResponse =
+                        snapshot.data!;
+                    return Builder(
+                      builder: (context) {
+                        final listaRegistros =
+                            listViewAvgFromPlantAgroupByIntervalsToGraphResponse
+                                .jsonBody
+                                .toList()
+                                .take(200)
+                                .toList();
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listaRegistros.length,
+                          itemBuilder: (context, listaRegistrosIndex) {
+                            final listaRegistrosItem =
+                                listaRegistros[listaRegistrosIndex];
+                            return Container(
+                              width: 100.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      getJsonField(
+                                        listaRegistrosItem,
+                                        r'''$.id''',
+                                      ).toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      getJsonField(
+                                        listaRegistrosItem,
+                                        r'''$.valor''',
+                                      )
+                                          .toString()
+                                          .maybeHandleOverflow(maxChars: 5),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      getJsonField(
+                                        listaRegistrosItem,
+                                        r'''$.unidad_medida.nombre''',
+                                      ).toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      getJsonField(
+                                        listaRegistrosItem,
+                                        r'''$.tipo_sensor.nombre''',
+                                      ).toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      getJsonField(
+                                        listaRegistrosItem,
+                                        r'''$.zona_sensor.nombre''',
+                                      ).toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      getJsonField(
+                                        listaRegistrosItem,
+                                        r'''$.numero_sensor''',
+                                      ).toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -197,6 +318,50 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       color: Color(0xFFEFBC39),
                                       barWidth: 3.0,
                                       isCurved: true,
+                                    ),
+                                  ),
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color: Color(0xFFCB282B),
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                      dotData: FlDotData(show: false),
+                                      belowBarData: BarAreaData(
+                                        show: true,
+                                        color: Color(0x4B2DA425),
+                                      ),
+                                    ),
+                                  ),
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color: Color(0xFF3125A4),
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                      dotData: FlDotData(show: false),
+                                      belowBarData: BarAreaData(
+                                        show: true,
+                                        color: Color(0x4C396BEF),
+                                      ),
                                     ),
                                   )
                                 ],
