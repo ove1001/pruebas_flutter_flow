@@ -447,9 +447,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   labelFormatter: LabelFormatter(
                                     numberFormat: (val) => formatNumber(
                                       val,
-                                      formatType: FormatType.custom,
-                                      format: '',
-                                      locale: '',
+                                      formatType:
+                                          FormatType.formatTypeUndefined,
                                     ),
                                   ),
                                 ),
@@ -488,57 +487,162 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          width: 370.0,
-                          height: 230.0,
-                          child: FlutterFlowLineChart(
-                            data: [
-                              FFLineChartData(
-                                xData: getJsonField(
-                                  rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                      .jsonBody,
-                                  r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 370.0,
+                              height: 230.0,
+                              child: FlutterFlowLineChart(
+                                data: [
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                    ),
+                                  ),
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color: Color(0xFF6F28CB),
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                      dotData: FlDotData(show: false),
+                                      belowBarData: BarAreaData(
+                                        show: true,
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent1,
+                                      ),
+                                    ),
+                                  ),
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color: Color(0xFF2536A4),
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                      dotData: FlDotData(show: false),
+                                      belowBarData: BarAreaData(
+                                        show: true,
+                                        color: FlutterFlowTheme.of(context)
+                                            .accent1,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                                chartStylingInfo: ChartStylingInfo(
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  showBorder: false,
                                 ),
-                                yData: getJsonField(
-                                  rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                      .jsonBody,
-                                  r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                axisBounds: AxisBounds(
+                                  minY: -5.0,
+                                  maxY: 45.0,
                                 ),
-                                settings: LineChartBarData(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  barWidth: 2.0,
-                                  isCurved: true,
+                                xAxisLabelInfo: AxisLabelInfo(
+                                  title: 'Fecha',
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
                                 ),
-                              )
-                            ],
-                            chartStylingInfo: ChartStylingInfo(
-                              backgroundColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              showBorder: false,
-                            ),
-                            axisBounds: AxisBounds(
-                              minY: -5.0,
-                              maxY: 45.0,
-                            ),
-                            xAxisLabelInfo: AxisLabelInfo(
-                              title: 'Fecha',
-                              titleTextStyle: TextStyle(
-                                fontSize: 14.0,
+                                yAxisLabelInfo: AxisLabelInfo(
+                                  title: getJsonField(
+                                    rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                        .jsonBody,
+                                    r'''$.TEMPERATURA.AMBIENTE.unidad_medida''',
+                                  ).toString(),
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                  showLabels: true,
+                                  labelInterval: 10.0,
+                                ),
                               ),
                             ),
-                            yAxisLabelInfo: AxisLabelInfo(
-                              title: getJsonField(
-                                rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
-                                    .jsonBody,
-                                r'''$.TEMPERATURA.AMBIENTE.unidad_medida''',
-                              ).toString(),
-                              titleTextStyle: TextStyle(
-                                fontSize: 14.0,
+                            Container(
+                              width: 370.0,
+                              height: 230.0,
+                              child: FlutterFlowLineChart(
+                                data: [
+                                  FFLineChartData(
+                                    xData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                    ),
+                                    yData: getJsonField(
+                                      rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                          .jsonBody,
+                                      r'''$.HUMEDAD.AMBIENTE.lista_valores''',
+                                    ),
+                                    settings: LineChartBarData(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      barWidth: 2.0,
+                                      isCurved: true,
+                                    ),
+                                  )
+                                ],
+                                chartStylingInfo: ChartStylingInfo(
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  showBorder: false,
+                                ),
+                                axisBounds: AxisBounds(
+                                  minY: -5.0,
+                                  maxY: 45.0,
+                                ),
+                                xAxisLabelInfo: AxisLabelInfo(
+                                  title: 'Fecha',
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                ),
+                                yAxisLabelInfo: AxisLabelInfo(
+                                  title: getJsonField(
+                                    rowRegistrosSensoresAllFromPlantBetweenDatesToGraphResponse
+                                        .jsonBody,
+                                    r'''$.HUMEDAD.AMBIENTE.unidad_medida''',
+                                  ).toString(),
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 14.0,
+                                  ),
+                                  showLabels: true,
+                                  labelInterval: 10.0,
+                                ),
                               ),
-                              showLabels: true,
-                              labelInterval: 10.0,
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     );
