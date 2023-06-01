@@ -395,10 +395,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 .secondaryBackground,
                                         showBorder: false,
                                       ),
-                                      axisBounds: AxisBounds(
-                                        minY: -5.0,
-                                        maxY: 45.0,
-                                      ),
+                                      axisBounds: AxisBounds(),
                                       xAxisLabelInfo: AxisLabelInfo(
                                         title: 'Fecha',
                                         titleTextStyle: TextStyle(
@@ -422,7 +419,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             val,
                                             formatType: FormatType.decimal,
                                             decimalType:
-                                                DecimalType.commaDecimal,
+                                                DecimalType.periodDecimal,
                                           ),
                                         ),
                                       ),
