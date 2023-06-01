@@ -99,12 +99,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         snapshot.data!;
                     return Builder(
                       builder: (context) {
-                        final listaRegistros =
-                            listViewAvgFromPlantAgroupByIntervalsToGraphResponse
-                                .jsonBody
-                                .toList()
-                                .take(200)
-                                .toList();
+                        final listaRegistros = getJsonField(
+                          listViewAvgFromPlantAgroupByIntervalsToGraphResponse
+                              .jsonBody,
+                          r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                        ).toList().take(200).toList();
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
