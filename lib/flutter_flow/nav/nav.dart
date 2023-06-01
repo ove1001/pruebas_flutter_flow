@@ -42,6 +42,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'HomePage',
           path: '/homePage',
           builder: (context, params) => HomePageWidget(),
+        ),
+        FFRoute(
+          name: 'ListPlants',
+          path: '/listPlants',
+          builder: (context, params) => ListPlantsWidget(),
+        ),
+        FFRoute(
+          name: 'blank',
+          path: '/blank',
+          builder: (context, params) => BlankWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       urlPathStrategy: UrlPathStrategy.path,

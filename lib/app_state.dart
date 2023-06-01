@@ -25,6 +25,18 @@ class FFAppState extends ChangeNotifier {
   set rsidPrueba(int _value) {
     _rsidPrueba = _value;
   }
+
+  int _diasgraficar = 1;
+  int get diasgraficar => _diasgraficar;
+  set diasgraficar(int _value) {
+    _diasgraficar = _value;
+  }
+
+  String _plantagraficar = 'Mi tomatera';
+  String get plantagraficar => _plantagraficar;
+  set plantagraficar(String _value) {
+    _plantagraficar = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
