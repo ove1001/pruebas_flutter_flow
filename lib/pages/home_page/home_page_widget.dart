@@ -332,7 +332,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -354,7 +354,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -376,7 +376,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
+                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -455,7 +455,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -477,7 +477,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -499,7 +499,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -578,7 +578,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -600,7 +600,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -622,7 +622,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -701,7 +701,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -723,7 +723,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
@@ -745,7 +745,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           xData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                 .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas''',
+                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_cortas''',
                                           ),
                                           yData: getJsonField(
                                             rowAvgFromPlantAgroupByIntervalsToGraphResponse
