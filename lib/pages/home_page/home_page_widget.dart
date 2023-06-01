@@ -77,6 +77,67 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: 370.0,
+                          height: 230.0,
+                          child: FlutterFlowLineChart(
+                            data: [
+                              FFLineChartData(
+                                xData: getJsonField(
+                                  FFAppState().datospruebas,
+                                  r'''$.TEMPERATURA.AMBIENTE.lista_fechas_largas''',
+                                ),
+                                yData: getJsonField(
+                                  FFAppState().datospruebas,
+                                  r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                ),
+                                settings: LineChartBarData(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  barWidth: 2.0,
+                                ),
+                              )
+                            ],
+                            chartStylingInfo: ChartStylingInfo(
+                              backgroundColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              showBorder: false,
+                            ),
+                            axisBounds: AxisBounds(
+                              minY: -5.0,
+                              maxY: 45.0,
+                            ),
+                            xAxisLabelInfo: AxisLabelInfo(
+                              title: 'Fecha',
+                              titleTextStyle: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                              showLabels: true,
+                              labelInterval: 10.0,
+                            ),
+                            yAxisLabelInfo: AxisLabelInfo(
+                              title: getJsonField(
+                                FFAppState().datospruebas,
+                                r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
+                              ).toString(),
+                              titleTextStyle: TextStyle(
+                                fontSize: 14.0,
+                              ),
+                              showLabels: true,
+                              labelInterval: 10.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
