@@ -155,14 +155,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ..complete(RegistrosSensoresGroup
                                     .avgFromPlantAgroupByIntervalsToGraphCall
                                     .call(
-                                  np: valueOrDefault<String>(
-                                    FFAppState().plantagraficar,
-                                    'Mi tomatera',
-                                  ),
-                                  d: valueOrDefault<int>(
-                                    FFAppState().diasgraficar,
-                                    1,
-                                  ),
+                                  np: 'Mi tomatera',
+                                  d: 1,
                                 )))
                           .future,
                       builder: (context, snapshot) {
