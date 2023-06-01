@@ -156,7 +156,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     .avgFromPlantAgroupByIntervalsToGraphCall
                                     .call(
                                   np: 'Mi tomatera',
-                                  d: 1,
+                                  d: 1.0,
                                 )))
                           .future,
                       builder: (context, snapshot) {

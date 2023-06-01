@@ -116,7 +116,7 @@ class RegistrosSensoresGetAllFromPlantCall {
 class AvgFromPlantAgroupByIntervalsToGraphCall {
   Future<ApiCallResponse> call({
     String? np = '',
-    int? d,
+    double? d,
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'AvgFromPlantAgroupByIntervalsToGraph',
