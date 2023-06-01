@@ -77,7 +77,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               children: [
                 Container(
                   width: 507.0,
-                  height: 174.0,
+                  height: 108.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
@@ -109,6 +109,78 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             listViewAvgFromPlantAgroupByIntervalsToGraphResponse
                                 .jsonBody,
                             r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                          ).toList().take(200).toList();
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listaRegistros.length,
+                            itemBuilder: (context, listaRegistrosIndex) {
+                              final listaRegistrosItem =
+                                  listaRegistros[listaRegistrosIndex];
+                              return Container(
+                                width: 100.0,
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        listaRegistrosItem.toString(),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Container(
+                  width: 507.0,
+                  height: 108.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                  child: FutureBuilder<ApiCallResponse>(
+                    future: RegistrosSensoresGroup
+                        .avgFromPlantAgroupByIntervalsToGraphCall
+                        .call(
+                      np: 'Mi tomatera',
+                      d: 1,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        );
+                      }
+                      final listViewAvgFromPlantAgroupByIntervalsToGraphResponse =
+                          snapshot.data!;
+                      return Builder(
+                        builder: (context) {
+                          final listaRegistros = getJsonField(
+                            listViewAvgFromPlantAgroupByIntervalsToGraphResponse
+                                .jsonBody,
+                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas''',
                           ).toList().take(200).toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
