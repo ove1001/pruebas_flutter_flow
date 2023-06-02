@@ -303,10 +303,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     return Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Flexible(
+                        Expanded(
                           child: Container(
                             width: 364.0,
-                            height: 310.0,
+                            height: 325.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -326,10 +326,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Text(
-                                        'Luminosidad ambiente',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                      Container(
+                                        width: 390.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Text(
+                                          'Luminosidad ambiente',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                fontSize: 14.0,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
                                       ),
                                       Container(
                                         width: 369.0,
@@ -447,10 +462,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Text(
-                                        'Humedad maceta',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                      Container(
+                                        width: 390.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Text(
+                                          'Humedad maceta',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
                                       ),
                                       Container(
                                         width: 369.0,
@@ -571,10 +600,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Text(
-                                        'Humedad ambiente',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                      Container(
+                                        width: 390.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Text(
+                                          'Humedad ambiente',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
                                       ),
                                       Container(
                                         width: 369.0,
@@ -695,10 +738,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Text(
-                                        'Temperatura ambiente',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                      Container(
+                                        width: 390.0,
+                                        height: 30.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                        ),
+                                        child: Text(
+                                          'Temperatura ambiente',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
                                       ),
                                       Container(
                                         width: 369.0,
