@@ -105,7 +105,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             chartStylingInfo: ChartStylingInfo(
                               backgroundColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              showBorder: false,
+                              showGrid: true,
+                              borderColor:
+                                  FlutterFlowTheme.of(context).secondaryText,
+                              borderWidth: 1.0,
                             ),
                             axisBounds: AxisBounds(
                               minY: -5.0,
@@ -119,7 +122,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             yAxisLabelInfo: AxisLabelInfo(
                               showLabels: true,
-                              labelInterval: 10.0,
+                              labelInterval: 5.0,
                             ),
                           ),
                         ),
@@ -330,540 +333,532 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     );
                   },
                 ),
-                ListView(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    FutureBuilder<ApiCallResponse>(
-                      future: RegistrosSensoresGroup
-                          .avgFromPlantAgroupByIntervalsToGraphCall
-                          .call(
-                        np: 'Mi tomatera',
-                        d: FFAppState().diasgraficar,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                color: FlutterFlowTheme.of(context).primary,
+                Flexible(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      FutureBuilder<ApiCallResponse>(
+                        future: RegistrosSensoresGroup
+                            .avgFromPlantAgroupByIntervalsToGraphCall
+                            .call(
+                          np: 'Mi tomatera',
+                          d: FFAppState().diasgraficar,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
-                            ),
+                            );
+                          }
+                          final rowAvgFromPlantAgroupByIntervalsToGraphResponse =
+                              snapshot.data!;
+                          return Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: 390.0,
+                                height: 330.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Temperatura ambiente',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                    Container(
+                                      width: 369.0,
+                                      height: 280.0,
+                                      child: FlutterFlowLineChart(
+                                        data: [
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.TEMPERATURA.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFFCB282B),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4B2DA425),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.TEMPERATURA.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF3125A4),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4C396BEF),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.TEMPERATURA.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF9D25A4),
+                                              barWidth: 2.0,
+                                            ),
+                                          )
+                                        ],
+                                        chartStylingInfo: ChartStylingInfo(
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          showBorder: false,
+                                        ),
+                                        axisBounds: AxisBounds(),
+                                        xAxisLabelInfo: AxisLabelInfo(
+                                          title: 'Fecha',
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                        yAxisLabelInfo: AxisLabelInfo(
+                                          title: getJsonField(
+                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                .jsonBody,
+                                            r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
+                                          ).toString(),
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                          showLabels: true,
+                                          labelTextStyle: TextStyle(),
+                                          labelInterval: 10.0,
+                                          labelFormatter: LabelFormatter(
+                                            numberFormat: (val) => formatNumber(
+                                              val,
+                                              formatType: FormatType.decimal,
+                                              decimalType:
+                                                  DecimalType.periodDecimal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 390.0,
+                                height: 330.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Humedad ambiente',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                    Container(
+                                      width: 369.0,
+                                      height: 280.0,
+                                      child: FlutterFlowLineChart(
+                                        data: [
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_valores_maximos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFFCB282B),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4B2DA425),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_valores_minimos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF3125A4),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4C396BEF),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_valores''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF9D25A4),
+                                              barWidth: 2.0,
+                                            ),
+                                          )
+                                        ],
+                                        chartStylingInfo: ChartStylingInfo(
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          showBorder: false,
+                                        ),
+                                        axisBounds: AxisBounds(
+                                          minY: -5.0,
+                                          maxY: 45.0,
+                                        ),
+                                        xAxisLabelInfo: AxisLabelInfo(
+                                          title: 'Fecha',
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                        yAxisLabelInfo: AxisLabelInfo(
+                                          title: getJsonField(
+                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                .jsonBody,
+                                            r'''$.HUMEDAD.AMBIENTE.unidad_medida.nombre''',
+                                          ).toString(),
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                          showLabels: true,
+                                          labelTextStyle: TextStyle(),
+                                          labelInterval: 10.0,
+                                          labelFormatter: LabelFormatter(
+                                            numberFormat: (val) => formatNumber(
+                                              val,
+                                              formatType: FormatType.decimal,
+                                              decimalType:
+                                                  DecimalType.commaDecimal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 390.0,
+                                height: 330.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Humedad maceta',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                    Container(
+                                      width: 369.0,
+                                      height: 280.0,
+                                      child: FlutterFlowLineChart(
+                                        data: [
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_valores_maximos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFFCB282B),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4B2DA425),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_valores_minimos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF3125A4),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4C396BEF),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.HUMEDAD.AMBIENTE.lista_valores''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF9D25A4),
+                                              barWidth: 2.0,
+                                            ),
+                                          )
+                                        ],
+                                        chartStylingInfo: ChartStylingInfo(
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          showBorder: false,
+                                        ),
+                                        axisBounds: AxisBounds(
+                                          minY: -5.0,
+                                          maxY: 45.0,
+                                        ),
+                                        xAxisLabelInfo: AxisLabelInfo(
+                                          title: 'Fecha',
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                        yAxisLabelInfo: AxisLabelInfo(
+                                          title: getJsonField(
+                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                .jsonBody,
+                                            r'''$.HUMEDAD.AMBIENTE.unidad_medida.nombre''',
+                                          ).toString(),
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                          showLabels: true,
+                                          labelTextStyle: TextStyle(),
+                                          labelInterval: 10.0,
+                                          labelFormatter: LabelFormatter(
+                                            numberFormat: (val) => formatNumber(
+                                              val,
+                                              formatType: FormatType.decimal,
+                                              decimalType:
+                                                  DecimalType.commaDecimal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 390.0,
+                                height: 330.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      'Luminosidad ambiente',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
+                                    Container(
+                                      width: 369.0,
+                                      height: 280.0,
+                                      child: FlutterFlowLineChart(
+                                        data: [
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.LUMINOSIDAD.AMBIENTE.lista_valores_maximos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFFCB282B),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4B2DA425),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.LUMINOSIDAD.AMBIENTE.lista_valores_minimos''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF3125A4),
+                                              barWidth: 2.0,
+                                              isCurved: true,
+                                              dotData: FlDotData(show: false),
+                                              belowBarData: BarAreaData(
+                                                show: true,
+                                                color: Color(0x4C396BEF),
+                                              ),
+                                            ),
+                                          ),
+                                          FFLineChartData(
+                                            xData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_largas''',
+                                            ),
+                                            yData: getJsonField(
+                                              rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                  .jsonBody,
+                                              r'''$.LUMINOSIDAD.AMBIENTE.lista_valores''',
+                                            ),
+                                            settings: LineChartBarData(
+                                              color: Color(0xFF9D25A4),
+                                              barWidth: 2.0,
+                                            ),
+                                          )
+                                        ],
+                                        chartStylingInfo: ChartStylingInfo(
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          showBorder: false,
+                                        ),
+                                        axisBounds: AxisBounds(
+                                          minY: -5.0,
+                                          maxY: 45.0,
+                                        ),
+                                        xAxisLabelInfo: AxisLabelInfo(
+                                          title: 'Fecha',
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                        yAxisLabelInfo: AxisLabelInfo(
+                                          title: getJsonField(
+                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
+                                                .jsonBody,
+                                            r'''$.LUMINOSIDAD.AMBIENTE.unidad_medida.nombre''',
+                                          ).toString(),
+                                          titleTextStyle: TextStyle(
+                                            fontSize: 14.0,
+                                          ),
+                                          showLabels: true,
+                                          labelTextStyle: TextStyle(),
+                                          labelInterval: 10.0,
+                                          labelFormatter: LabelFormatter(
+                                            numberFormat: (val) => formatNumber(
+                                              val,
+                                              formatType: FormatType.decimal,
+                                              decimalType:
+                                                  DecimalType.commaDecimal,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           );
-                        }
-                        final rowAvgFromPlantAgroupByIntervalsToGraphResponse =
-                            snapshot.data!;
-                        return Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              width: 390.0,
-                              height: 330.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Temperatura ambiente',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                  Container(
-                                    width: 369.0,
-                                    height: 280.0,
-                                    child: FlutterFlowLineChart(
-                                      data: [
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_valores_maximos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFFCB282B),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4B2DA425),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_valores_minimos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF3125A4),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4C396BEF),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF9D25A4),
-                                            barWidth: 2.0,
-                                          ),
-                                        )
-                                      ],
-                                      chartStylingInfo: ChartStylingInfo(
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        showBorder: false,
-                                      ),
-                                      axisBounds: AxisBounds(),
-                                      xAxisLabelInfo: AxisLabelInfo(
-                                        title: 'Fecha',
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                        showLabels: true,
-                                        labelInterval: 1.0,
-                                        labelFormatter: LabelFormatter(
-                                          numberFormat: (val) => formatNumber(
-                                            val,
-                                            formatType: FormatType.custom,
-                                            format: '',
-                                            locale: '',
-                                          ),
-                                        ),
-                                      ),
-                                      yAxisLabelInfo: AxisLabelInfo(
-                                        title: getJsonField(
-                                          rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                              .jsonBody,
-                                          r'''$.TEMPERATURA.AMBIENTE.unidad_medida.nombre''',
-                                        ).toString(),
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                        showLabels: true,
-                                        labelTextStyle: TextStyle(),
-                                        labelInterval: 10.0,
-                                        labelFormatter: LabelFormatter(
-                                          numberFormat: (val) => formatNumber(
-                                            val,
-                                            formatType: FormatType.decimal,
-                                            decimalType:
-                                                DecimalType.periodDecimal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 390.0,
-                              height: 330.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Humedad ambiente',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                  Container(
-                                    width: 369.0,
-                                    height: 280.0,
-                                    child: FlutterFlowLineChart(
-                                      data: [
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_valores_maximos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFFCB282B),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4B2DA425),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_valores_minimos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF3125A4),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4C396BEF),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_valores''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF9D25A4),
-                                            barWidth: 2.0,
-                                          ),
-                                        )
-                                      ],
-                                      chartStylingInfo: ChartStylingInfo(
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        showBorder: false,
-                                      ),
-                                      axisBounds: AxisBounds(
-                                        minY: -5.0,
-                                        maxY: 45.0,
-                                      ),
-                                      xAxisLabelInfo: AxisLabelInfo(
-                                        title: 'Fecha',
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
-                                      yAxisLabelInfo: AxisLabelInfo(
-                                        title: getJsonField(
-                                          rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                              .jsonBody,
-                                          r'''$.HUMEDAD.AMBIENTE.unidad_medida.nombre''',
-                                        ).toString(),
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                        showLabels: true,
-                                        labelTextStyle: TextStyle(),
-                                        labelInterval: 10.0,
-                                        labelFormatter: LabelFormatter(
-                                          numberFormat: (val) => formatNumber(
-                                            val,
-                                            formatType: FormatType.decimal,
-                                            decimalType:
-                                                DecimalType.commaDecimal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 390.0,
-                              height: 330.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Humedad maceta',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                  Container(
-                                    width: 369.0,
-                                    height: 280.0,
-                                    child: FlutterFlowLineChart(
-                                      data: [
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_valores_maximos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFFCB282B),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4B2DA425),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_valores_minimos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF3125A4),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4C396BEF),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.HUMEDAD.AMBIENTE.lista_valores''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF9D25A4),
-                                            barWidth: 2.0,
-                                          ),
-                                        )
-                                      ],
-                                      chartStylingInfo: ChartStylingInfo(
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        showBorder: false,
-                                      ),
-                                      axisBounds: AxisBounds(
-                                        minY: -5.0,
-                                        maxY: 45.0,
-                                      ),
-                                      xAxisLabelInfo: AxisLabelInfo(
-                                        title: 'Fecha',
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
-                                      yAxisLabelInfo: AxisLabelInfo(
-                                        title: getJsonField(
-                                          rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                              .jsonBody,
-                                          r'''$.HUMEDAD.AMBIENTE.unidad_medida.nombre''',
-                                        ).toString(),
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                        showLabels: true,
-                                        labelTextStyle: TextStyle(),
-                                        labelInterval: 10.0,
-                                        labelFormatter: LabelFormatter(
-                                          numberFormat: (val) => formatNumber(
-                                            val,
-                                            formatType: FormatType.decimal,
-                                            decimalType:
-                                                DecimalType.commaDecimal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 390.0,
-                              height: 330.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Luminosidad ambiente',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                  ),
-                                  Container(
-                                    width: 369.0,
-                                    height: 280.0,
-                                    child: FlutterFlowLineChart(
-                                      data: [
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_valores_maximos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFFCB282B),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4B2DA425),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_valores_minimos''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF3125A4),
-                                            barWidth: 2.0,
-                                            isCurved: true,
-                                            dotData: FlDotData(show: false),
-                                            belowBarData: BarAreaData(
-                                              show: true,
-                                              color: Color(0x4C396BEF),
-                                            ),
-                                          ),
-                                        ),
-                                        FFLineChartData(
-                                          xData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_fechas_cortas''',
-                                          ),
-                                          yData: getJsonField(
-                                            rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                                .jsonBody,
-                                            r'''$.LUMINOSIDAD.AMBIENTE.lista_valores''',
-                                          ),
-                                          settings: LineChartBarData(
-                                            color: Color(0xFF9D25A4),
-                                            barWidth: 2.0,
-                                          ),
-                                        )
-                                      ],
-                                      chartStylingInfo: ChartStylingInfo(
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        showBorder: false,
-                                      ),
-                                      axisBounds: AxisBounds(
-                                        minY: -5.0,
-                                        maxY: 45.0,
-                                      ),
-                                      xAxisLabelInfo: AxisLabelInfo(
-                                        title: 'Fecha',
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                      ),
-                                      yAxisLabelInfo: AxisLabelInfo(
-                                        title: getJsonField(
-                                          rowAvgFromPlantAgroupByIntervalsToGraphResponse
-                                              .jsonBody,
-                                          r'''$.LUMINOSIDAD.AMBIENTE.unidad_medida.nombre''',
-                                        ).toString(),
-                                        titleTextStyle: TextStyle(
-                                          fontSize: 14.0,
-                                        ),
-                                        showLabels: true,
-                                        labelTextStyle: TextStyle(),
-                                        labelInterval: 10.0,
-                                        labelFormatter: LabelFormatter(
-                                          numberFormat: (val) => formatNumber(
-                                            val,
-                                            formatType: FormatType.decimal,
-                                            decimalType:
-                                                DecimalType.commaDecimal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
