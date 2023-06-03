@@ -12,7 +12,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start RegistrosSensores Group Code
 
 class RegistrosSensoresGroup {
-  static String baseUrl = 'http://192.168.1.27:5000/api/v1/RegistrosSensores';
+  static String baseUrl = 'http://192.168.1.240:5000/api/v1/RegistrosSensores';
   static Map<String, String> headers = {};
   static RegistrosSensoresGetOneCall registrosSensoresGetOneCall =
       RegistrosSensoresGetOneCall();
@@ -173,7 +173,7 @@ class RegistrosSensoresAllFromPlantBetweenDatesToGraphCall {
 /// Start TipoPlanta Group Code
 
 class TipoPlantaGroup {
-  static String baseUrl = '192.168.1.27:5000/api/v1/TiplosPlantas';
+  static String baseUrl = '192.168.1.240:5000/api/v1/TiplosPlantas';
   static Map<String, String> headers = {};
   static TipoPlantaGetOneCall tipoPlantaGetOneCall = TipoPlantaGetOneCall();
   static TipoPlantaGetAllCall tipoPlantaGetAllCall = TipoPlantaGetAllCall();
