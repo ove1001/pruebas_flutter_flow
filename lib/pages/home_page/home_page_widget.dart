@@ -415,6 +415,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
+                                            showGrid: true,
                                             showBorder: false,
                                           ),
                                           axisBounds: AxisBounds(),
