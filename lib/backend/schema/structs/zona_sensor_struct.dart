@@ -66,6 +66,16 @@ class ZonaSensorStruct extends BaseStruct {
 
   @override
   String toString() => 'ZonaSensorStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is ZonaSensorStruct &&
+        nombre == other.nombre &&
+        tipo == other.tipo;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash([nombre, tipo]);
 }
 
 ZonaSensorStruct createZonaSensorStruct({

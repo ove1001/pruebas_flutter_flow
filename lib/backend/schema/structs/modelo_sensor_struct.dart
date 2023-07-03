@@ -66,6 +66,16 @@ class ModeloSensorStruct extends BaseStruct {
 
   @override
   String toString() => 'ModeloSensorStruct(${toMap()})';
+
+  @override
+  bool operator ==(Object other) {
+    return other is ModeloSensorStruct &&
+        nombre == other.nombre &&
+        tipo == other.tipo;
+  }
+
+  @override
+  int get hashCode => const ListEquality().hash([nombre, tipo]);
 }
 
 ModeloSensorStruct createModeloSensorStruct({

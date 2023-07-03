@@ -3,8 +3,6 @@ import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,7 +22,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -41,7 +38,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -50,7 +46,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -58,7 +54,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Page Title',
+            'Gráficas de sensores',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -77,33 +73,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FFButtonWidget(
-                      onPressed: () async {
-                        setState(() => _model.apiRequestCompleter = null);
-                        await _model.waitForApiRequestCompleted();
-                      },
-                      text: 'Mostrar',
-                      options: FFButtonOptions(
-                        height: 40.0,
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                ),
-                        elevation: 3.0,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1.0,
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
+                    Text(
+                      'Días mostrados',
+                      style: FlutterFlowTheme.of(context).titleLarge,
                     ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Container(
                       width: 160.0,
                       height: 50.0,
@@ -147,136 +128,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                   ],
-                ),
-                FutureBuilder<ApiCallResponse>(
-                  future: (_model.apiRequestCompleter ??=
-                          Completer<ApiCallResponse>()
-                            ..complete(RegistrosSensoresGroup
-                                .avgFromPlantAgroupByIntervalsToGraphCall
-                                .call(
-                              np: 'Mi tomatera',
-                              d: FFAppState().diasgraficar,
-                            )))
-                      .future,
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
-                          ),
-                        ),
-                      );
-                    }
-                    final columnAvgFromPlantAgroupByIntervalsToGraphResponse =
-                        snapshot.data!;
-                    return Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: 507.0,
-                          height: 108.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Builder(
-                            builder: (context) {
-                              final listaRegistros = getJsonField(
-                                columnAvgFromPlantAgroupByIntervalsToGraphResponse
-                                    .jsonBody,
-                                r'''$.TEMPERATURA.AMBIENTE.lista_fechas_cortas''',
-                              ).toList().take(200).toList();
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listaRegistros.length,
-                                itemBuilder: (context, listaRegistrosIndex) {
-                                  final listaRegistrosItem =
-                                      listaRegistros[listaRegistrosIndex];
-                                  return Container(
-                                    width: 100.0,
-                                    height: 50.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            listaRegistrosItem.toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                        Container(
-                          width: 507.0,
-                          height: 108.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Builder(
-                            builder: (context) {
-                              final listaRegistros = getJsonField(
-                                columnAvgFromPlantAgroupByIntervalsToGraphResponse
-                                    .jsonBody,
-                                r'''$.TEMPERATURA.AMBIENTE.lista_valores''',
-                              ).toList().take(200).toList();
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listaRegistros.length,
-                                itemBuilder: (context, listaRegistrosIndex) {
-                                  final listaRegistrosItem =
-                                      listaRegistros[listaRegistrosIndex];
-                                  return Container(
-                                    width: 100.0,
-                                    height: 50.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            listaRegistrosItem.toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  },
                 ),
                 FutureBuilder<ApiCallResponse>(
                   future: RegistrosSensoresGroup
