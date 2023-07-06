@@ -402,6 +402,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
+                                            showGrid: true,
                                             showBorder: false,
                                           ),
                                           axisBounds: AxisBounds(),
@@ -481,7 +482,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               yData: getJsonField(
                                                 rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                     .jsonBody,
-                                                r'''$.HUMEDAD.AMBIENTE.lista_valores_maximos''',
+                                                r'''$.HUMEDAD.MACETA.lista_valores_maximos''',
                                               ),
                                               settings: LineChartBarData(
                                                 color: Color(0xFFCB282B),
@@ -503,7 +504,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               yData: getJsonField(
                                                 rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                     .jsonBody,
-                                                r'''$.HUMEDAD.AMBIENTE.lista_valores_minimos''',
+                                                r'''$.HUMEDAD.MACETA.lista_valores_minimos''',
                                               ),
                                               settings: LineChartBarData(
                                                 color: Color(0xFF3125A4),
@@ -525,7 +526,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               yData: getJsonField(
                                                 rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                     .jsonBody,
-                                                r'''$.HUMEDAD.AMBIENTE.lista_valores''',
+                                                r'''$.HUMEDAD.MACETA.lista_valores''',
                                               ),
                                               settings: LineChartBarData(
                                                 color: Color(0xFF9D25A4),
@@ -537,6 +538,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
+                                            showGrid: true,
                                             showBorder: false,
                                           ),
                                           axisBounds: AxisBounds(),
@@ -550,7 +552,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             title: getJsonField(
                                               rowAvgFromPlantAgroupByIntervalsToGraphResponse
                                                   .jsonBody,
-                                              r'''$.HUMEDAD.AMBIENTE.unidad_medida.nombre''',
+                                              r'''$.HUMEDAD.MACETA.unidad_medida.nombre''',
                                             ).toString(),
                                             titleTextStyle: TextStyle(
                                               fontSize: 14.0,
@@ -673,6 +675,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondaryBackground,
+                                            showGrid: true,
                                             showBorder: false,
                                           ),
                                           axisBounds: AxisBounds(),
@@ -693,7 +696,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                             showLabels: true,
                                             labelTextStyle: TextStyle(),
-                                            labelInterval: 10.0,
+                                            labelInterval: 50.0,
                                             labelFormatter: LabelFormatter(
                                               numberFormat: (val) =>
                                                   formatNumber(
